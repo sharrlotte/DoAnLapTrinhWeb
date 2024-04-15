@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager;
+
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - DoAnLapTrinhWeb</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/DoAnLapTrinhWeb.styles.css" asp-append-version="true" />
+</head>
+<body class="h-100 d-flex flex-column">
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light justify-content-center">
+			<div class="m-0 px-2 w-100 justify-content-between d-flex flex-row">
+				<div class="row">
+					<a class=" navbar-brand" asp-area="" asp-action="Index">
+						<h3>
+							<b>
+								FiverrTwin
+							</b>
+						</h3>
+					</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+				</div>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+					@if (SignInManager.IsSignedIn(User))
+					{
+						<ul class="nav navbar-nav navbar-right flex justify-content-center align-items-center gap-2">
+							<li>
+								<a class=" btn">@UserManager.GetUserAsync(User).Result?.UserName</a>
+							</li>
+							<li>
+								<form class=" form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+									<button class="btn btn-secondary">Logout</button>
+								</form>
+							</li>
+							@if (User.Claims.Where(c => c.Type == ClaimTypes.Role).Where(c => c.Value == "Admin").Count() > 0)
+							{
+								<li>
+									<a class=" btn btn-primary" asp-area="Admin" asp-controller="Home" asp-action="Index" title="Admin">Manage</a>
+								</li>
+							}
+						</ul>
+					}
+					else
+					{
+						<ul class="nav navbar-nav navbar-right flex justify-content-center align-items-center gap-2">
+
+							<li class="nav-item">
+								<a class=" nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+							</li>
+							<li class="nav-item">
+								<a class=" nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+							</li>
+						</ul>
+					}
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div style="min-height: 100%">
+		@RenderBody()
+		<footer class="border-top text-muted" style="height: 3rem">
+			<div class="container">
+				&copy; 2024 - FiverrTwin
+			</div>
+		</footer>
+
+	</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

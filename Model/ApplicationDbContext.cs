@@ -12,5 +12,19 @@ namespace DoAnLapTrinhWeb.Model
 
 		}
 		public DbSet<Category> Categories { get; set; }
+
+		public DbSet<Service> Services { get; set; }
+
+		public DbSet<Comment> Comments { get; set; }
+
+		public DbSet<Favourite> Favourites { get; set; }
+
+		public DbSet<Order> Orders { get; set; }
+
+		public DbSet<Price> Prices { get; set; }
+
+		public DbSet<Review> Reviews { get; set; }
+
+		public DbSet<Tag> Tags { get; set; }
 	}
 }

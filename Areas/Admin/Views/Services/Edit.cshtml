@@ -1,0 +1,68 @@
+﻿@model DoAnLapTrinhWeb.Model.Service
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<div class="row w-100">
+	<div class="col-md-4 w-100">
+		<form asp-action="Edit" class="d-flex flex-column gap-2" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="ServiceId" />
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description" class="control-label"></label>
+				<textarea asp-for="Description" class="form-control"></textarea>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="CategoryId" class="control-label">Category</label>
+				<select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+				<span asp-validation-for="CategoryId" class="text-danger"></span>
+			</div>
+			<div class="form-group gap-1 d-flex flex-column">
+				<label asp-for="Thumbnail">Image</label>
+				<input id="ImagePicker" type="file" asp-for="Thumbnail" class="form-control" accept=".png,.jpg,.pjeg,.webp" />
+				<span asp-validation-for="Thumbnail" class="text-danger"></span>
+				<img style="max-width: 100vw" id="Image" />
+
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+				<a class="btn btn-secondary" asp-action="Index">Back to List</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+
+<script>
+	function readURL(files) {
+		if (files && files[0]) {
+
+			const image = document.getElementById("Image")
+			if (image) {
+				const url = URL.createObjectURL(files[0])
+				image.src = url;
+			}
+		}
+	}
+
+	const imagePicker = document.getElementById("ImagePicker")
+
+	if (imagePicker) {
+		imagePicker.addEventListener("change", function (event) {
+			readURL(event.currentTarget.files)
+
+		});
+	}
+</script>

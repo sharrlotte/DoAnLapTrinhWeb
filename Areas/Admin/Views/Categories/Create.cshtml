@@ -1,0 +1,58 @@
+﻿@model DoAnLapTrinhWeb.Model.Category
+
+@{
+	ViewData["Title"] = "Create";
+}
+<div class="row w-100">
+	<div class="col-md-4 w-100">
+		<form asp-action="Create" class="d-flex flex-column gap-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger" enctype="multipart/form-data"></div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+				<a class="btn btn-secondary" asp-action="Index">Back to List</a>
+			</div>
+
+			<div class="form-group gap-1 d-flex flex-column">
+				<label asp-for="Image">Image</label>
+				<input id="ImagePicker" type="file" asp-for="Image" class="form-control" accept=".png,.jpg,.pjeg,.webp" />
+				<span asp-validation-for="Image" class="text-danger"></span>
+				<img style="max-width: 100vw" id="Image" />
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+
+
+<script>
+	function readURL(files) {
+		if (files && files[0]) {
+
+			const image = document.getElementById("Image")
+			if (image) {
+				const url = URL.createObjectURL(files[0])
+				image.src = url;
+			}
+		}
+	}
+
+	const imagePicker = document.getElementById("ImagePicker")
+
+	if (imagePicker) {
+		imagePicker.addEventListener("change", function (event) {
+			readURL(event.currentTarget.files)
+
+		});
+	}
+</script>

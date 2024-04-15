@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controller\" />
-    <Folder Include="Areas\Admin\Pages\" />
-    <Folder Include="Controller\" />
-    <Folder Include="Service\" />
-    <Folder Include="Repository\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

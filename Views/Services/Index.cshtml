@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DoAnLapTrinhWeb.Model.Service>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<div class="d-flex flex-wrap justify-content-start p-2 mx-auto gap-2">
+	@foreach (var item in Model)
+	{
+		<a asp-action="Details" asp-controller="Services" asp-route-id="@item.ServiceId" class="grid flex-column rounded-2 overflow-hidden border" style="width: 300px; min-height: 250px; text-decoration: none">
+			<img src="@item.ThumbnailUrl" style="width: 300px; height: 200px; object-fit: cover; place-content: center;"></img>
+
+			<div class="p-1">
+				<b class="text-black">@item.User.UserName</b>
+				<b class="text-black" style="z-index: 20">@item.Name</b>
+			</div>
+		</a>
+	}
+</div>

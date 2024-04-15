@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager;
+
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - DoAnLapTrinhWeb</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/DoAnLapTrinhWeb.styles.css" asp-append-version="true" />
+</head>
+<body class="h-100 d-flex">
+	<div class="border-end p-2 d-flex flex-column justify-content-between" style="width: max(20%,300px); background-color: rgb(64,81,137);">
+		<section class="d-flex flex-column gap-2">
+			<a class="d-flex align-items-center gap-1 text-white text-decoration-none" asp-action="Index" asp-controller="Home" asp-area="Admin">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6" style="height: 1rem; width: 1rem">
+					<path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+				</svg>
+				<span>
+					Dashboard
+				</span>
+			</a>
+			<a class="d-flex align-items-center gap-1 text-white text-decoration-none" asp-action="Index" asp-controller="Services" asp-area="Admin">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="height: 1rem; width: 1rem">
+					<path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+				</svg>
+
+				<span>
+					Service
+				</span>
+			</a>
+			<a class="d-flex align-items-center gap-1 text-white text-decoration-none" asp-action="Index" asp-controller="Categories" asp-area="Admin">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="height: 1rem; width: 1rem">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+				</svg>
+				<span>
+					Category
+				</span>
+			</a>
+		</section>
+		<div class="overflow-hidden" style="box-sizing: border-box; text-overflow: ellipsis; white-space: nowrap; display: inline-block">
+			@if (SignInManager.IsSignedIn(User))
+			{
+				<ul class="d-flex flex-wrap nav gap-2">
+					<li>
+						<a class="btn btn-primary">@UserManager.GetUserAsync(User).Result?.UserName</a>
+					</li>
+					<li>
+						<form class="form" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+							<button class="btn btn-secondary">Logout</button>
+						</form>
+					</li>
+					@if (User.Claims.Where(c => c.Type == ClaimTypes.Role).Where(c => c.Value == "Admin").Count() > 0)
+					{
+						<li>
+							<a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index" title="Admin">Go back</a>
+						</li>
+					}
+				</ul>
+			}
+			else
+			{
+				<ul class="nav navbar-nav navbar-right flex justify-content-center align-items-center gap-2">
+
+					<li class="nav-item">
+						<a class=" nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class=" nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+					</li>
+				</ul>
+			}
+		</div>
+	</div>
+	<div class="overflow-auto w-100" style="min-height: 100%">
+		<header>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light justify-content-center border-bottom">
+				<div class="p-2 m-0 w-100 justify-content-between d-flex flex-row">
+					<div class="row">
+						<a class=" navbar-brand" asp-area="" asp-action="Index">FiverrTwin</a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+								aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main role="main" class="p-2" style="min-height: 100%">
+			@RenderBody()
+		</main>
+		<footer class="border-top text-muted" style="height: 3rem">
+			<div class="container">
+				&copy; 2024 - FiverrTwin
+			</div>
+		</footer>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

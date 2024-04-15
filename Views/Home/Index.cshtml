@@ -1,0 +1,67 @@
+﻿@{
+	ViewData["Title"] = "Home page";
+}
+
+<div class="position-relative w-100 d-flex flex-column" style="min-height: 100%">
+	<div class="text-white position-relative w-100 vh-100 d-flex flex-column" style="background-position: center;background-size: cover; background-image: url(https://fiverr-res.cloudinary.com/image/upload/f_auto,q_auto,dpr_1.0/v1/attachments/generic_asset/asset/4637ac0b5e7bc7f247cd24c0ca9e36a3-1690384616487/jenny-2x.jpg);">
+		<div class="position-absolute d-flex flex-column gap-2" style="left: 10%; top: 30%">
+			<h1>
+				<b>
+					Find the right freelance <br> service, right away
+				</b>
+			</h1>
+			<div class="d-flex rounded bg-white align-items-center justify-content-between overflow-hidden">
+				<input class="w-100" style="height: 2rem; border: none; outline: none" placeholder="Search for services" />
+				<svg class="d-flex justify-content-center align-items-center" style="color: white; width: 1.5rem; height: 1.5rem; padding: 0.25rem;" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentFill"><path d="m15.89 14.653-3.793-3.794a.37.37 0 0 0-.266-.109h-.412A6.499 6.499 0 0 0 6.5 0C2.91 0 0 2.91 0 6.5a6.499 6.499 0 0 0 10.75 4.919v.412c0 .1.04.194.11.266l3.793 3.794a.375.375 0 0 0 .531 0l.707-.707a.375.375 0 0 0 0-.53ZM6.5 11.5c-2.763 0-5-2.238-5-5 0-2.763 2.237-5 5-5 2.762 0 5 2.237 5 5 0 2.762-2.238 5-5 5Z"></path></svg>
+			</div>
+			<div class="d-flex gap-2">
+				<h5>
+					Popular:
+				</h5>
+				<div class="rounded-pill border-1 border py-1 px-3">
+					Website Design
+				</div>
+				<div class="rounded-pill border-1 border py-1 px-3">
+					WordPress
+				</div>
+				<div class="rounded-pill border-1 border py-1 px-3">
+					Logo Design
+				</div>
+				<div class="rounded-pill border-1 border py-1 px-3">
+					AI Services
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="p-2">
+		<h4>
+			Categories
+		</h4>
+		<section class="d-grid gap-2 overflow-auto w-100 justify-content-start" style="grid-auto-columns:autol; grid-auto-flow:column">
+			@foreach (Category item in @ViewBag.Categories)
+			{
+				<a class="d-flex position-relative rounded-2 overflow-hidden border" style="width: 300px; height: 200px; text-decoration: none">
+					<h3 class="text-white top-50 bottom-50 start-50 end-50 text-center p-2" style="z-index: 20">@item.Name</h3>
+					<img class="position-absolute" src="@item.ImageUrl" style="width: 300px; height: 200px; object-fit: cover; place-content: center;"></img>
+				</a>
+			}
+		</section>
+	</div>
+
+	<div class="p-2">
+		<h4>Services</h4>
+		<section class="d-grid gap-2 overflow-auto w-100 justify-content-start" style="grid-auto-columns:autol; grid-auto-flow:column">
+			@foreach (Service item in @ViewBag.Services)
+			{
+				<a asp-action="Details" asp-controller="Services" asp-route-id="@item.ServiceId" class="grid flex-column rounded-2 overflow-hidden border" style="width: 300px; min-height: 250px; text-decoration: none">
+					<img src="@item.ThumbnailUrl" style="width: 300px; height: 200px; object-fit: cover; place-content: center;"></img>
+
+					<div class="p-1">
+						<b class="text-black">@item.User.UserName</b>
+						<b class="text-black" style="z-index: 20">@item.Name</b>
+					</div>
+				</a>
+			}
+		</section>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model DoAnLapTrinhWeb.Model.Service
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DeliveryCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalDeliveryTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalDeliveryTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Like)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Like)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dd class="col-sm-10">
+            <img style="max-width: 100%" src="@Model.ThumbnailUrl" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>

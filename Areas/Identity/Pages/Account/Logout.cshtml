@@ -4,7 +4,8 @@
     ViewData["Title"] = "Log out";
 }
 
-<header>
+
+<header class="container">
     <h1>@ViewData["Title"]</h1>
     @{
         if (User.Identity?.IsAuthenticated ?? false)
